@@ -3,5 +3,8 @@ const productController = require("../controller/productController");
 const router = express.Router();
 
 router.post("/", productController.createProduct);
+router.get("/", productController.getProducts);
+router.get("/:id", productController.getProductById);
+router.delete("/:id", productController.deleteProduct);
 
 module.exports = router;

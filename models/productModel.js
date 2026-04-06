@@ -1,8 +1,24 @@
 const db = require("../config/db");
 
-const addProduct = (name, price, callback) => {
+const addProduct = async (name, price) => {
   const sql = "INSERT INTO products (name, price) VALUES(?, ?)";
-  db.query(sql, [name, price], callback);
+  const [result] = await db.query(sql, [name, price]);
+  return result;
 };
 
-module.exports = { addProduct };
+const getAllProducts = async () => {
+  const [rows] = await db.query("SELECT * FROM products");
+  return rows;
+};
+
+const getProductById = async (id) => {
+  const [rows] = await db.query("SELECT * FROM products WHERE id = ?", [id]);
+  return rows[0];
+};
+
+const deleteProduct = async (id) => {
+  const [result] = await db.query("DELETE FROM products WHERE id = ?", [id]);
+  return result;
+};
+
+module.exports = { addProduct, getAllProducts, getProductById, deleteProduct };
