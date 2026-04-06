@@ -21,4 +21,16 @@ const deleteProduct = async (id) => {
   return result;
 };
 
-module.exports = { addProduct, getAllProducts, getProductById, deleteProduct };
+const updateProduct = async (id, price, name) => {
+  const sql = "UPDATE products SET name = ? , price = ? WHERE id = ?";
+  const [result] = await db.query(sql, [name, price, id]);
+  return result;
+};
+
+module.exports = {
+  addProduct,
+  getAllProducts,
+  getProductById,
+  deleteProduct,
+  updateProduct,
+};
